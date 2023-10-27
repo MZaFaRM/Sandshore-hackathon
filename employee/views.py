@@ -1,3 +1,4 @@
+import datetime
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -112,3 +113,14 @@ class DepartmentAPI(APIView):
             return CustomResponse.success(data="Successfully deleted").send(request)
         except Department.DoesNotExist as e:
             return CustomResponse.error(error=str(e), status=404).send(request)
+
+class EligibleEmployees(APIView):
+    def get(self, request):
+        """
+        Lists all employees who have at least 5 years of experience
+        """
+        employee = Employee.objects.filter(
+            date_of_joining__lte=datetime.date.today() - datetime.timedelta(days=1825)
+        )
+        serializer = EmployeeSerializer(employee, many=True)
+        return CustomResponse.success(data=serializer.data).send(request)

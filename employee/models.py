@@ -20,8 +20,7 @@ class Department(models.Model):
 
 class Employee(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
-    first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
+    full_name = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     contact_number = models.CharField(max_length=15, blank=True)
     date_of_joining = models.DateField()
@@ -29,8 +28,5 @@ class Employee(models.Model):
     is_manager = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name} (Employee ID: {self.employee_id})"
-    
-    @property
-    def full_name(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.full_name} (Employee ID: {self.employee_id})"
+
