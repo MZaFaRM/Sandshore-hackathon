@@ -9,6 +9,9 @@ class Department(models.Model):
 
     @property
     def manager(self):
+        """
+        Returns the manager of the department.
+        """
         try:
             return Employee.objects.get(department=self, is_manager=True).full_name
         except Employee.DoesNotExist:
@@ -29,4 +32,3 @@ class Employee(models.Model):
 
     def __str__(self):
         return f"{self.full_name} (Employee ID: {self.employee_id})"
-

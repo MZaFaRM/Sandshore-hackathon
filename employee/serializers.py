@@ -4,6 +4,9 @@ from .models import Employee, Department
 
 
 class EmployeeSerializer(serializers.ModelSerializer):
+    """
+    A serializer for Employee objects.
+    """
     def validate_is_manager(self, value):
         """
         Needs at least 5 years of experience to be a manager.
@@ -36,6 +39,9 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 
 class DepartmentSerializer(serializers.ModelSerializer):
+    """
+    Serializer for Department objects.
+    """
     def to_representation(self, instance):
         values = super().to_representation(instance)
         values["manager"] = instance.manager
