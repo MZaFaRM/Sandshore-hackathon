@@ -120,7 +120,7 @@ class EligibleEmployees(APIView):
         Lists all employees who have at least 5 years of experience
         """
         employee = Employee.objects.filter(
-            date_of_joining__lte=datetime.date.today() - datetime.timedelta(days=1825)
+            date_of_joining__lte=datetime.date.today() - datetime.timedelta(days=1825), is_manager=False
         )
         serializer = EmployeeSerializer(employee, many=True)
         return CustomResponse.success(data=serializer.data).send(request)
